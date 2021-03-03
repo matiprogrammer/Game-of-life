@@ -5,6 +5,7 @@ using namespace std;
 Cell::Cell()
 {
     this->isAlive = false;
+    this->color=white;
 }
 
 Cell::Cell(bool isAlive)
@@ -14,10 +15,12 @@ Cell::Cell(bool isAlive)
 
 void Cell::computeNextState(int neightboursAlive)
 {
-    cout << "obliczam stan komórki";
+
 }
 
 bool Cell::alive()
 {
     return this->isAlive;
 }
+
+

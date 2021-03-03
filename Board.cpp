@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <iostream>
+#include<QDebug>
 #include <list>
 using namespace std;
 
@@ -14,7 +15,7 @@ Board::Board(int height, int width)
         vector<vector<Cell>>::iterator iter1 = --(board.end());
         for (int j = 0; j < width; j++)
         {
-                (*iter1).push_back(Cell(false));
+            (*iter1).push_back(Cell(false));
         }
         iter1++;
     }
@@ -24,12 +25,14 @@ void Board::drawBoard()
 {
     for (vector<vector<Cell>>::iterator iter1 = board.begin(); iter1 != board.end(); iter1++)
     {
-
+        QDebug _qDebug=qDebug();
         for (vector<Cell>::iterator iter2 = (*iter1).begin(); iter2 != (*iter1).end(); iter2++)
         {
-            cout << ((*iter2).alive() ? "x" : "_");
+
+            _qDebug<<qPrintable((*iter2).alive() ? "x" : "_");
+
         }
-        cout << "\n";
+        qDebug() << "\n";
     }
 }
 
@@ -78,4 +81,9 @@ int Board::getAliveNeighbours(int height, int width)
         }
     }
     return aliveNeightbours;
+}
+
+Cell Board::getCell(int height, int width)
+{
+    return board[height][width];
 }

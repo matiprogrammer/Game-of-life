@@ -1,10 +1,13 @@
 #ifndef CELL_H
 #define CELL_H
+#include "Color.h"
+#include <QGraphicsItem>
 using namespace std;
 class Cell
 {
 private:
     bool isAlive;
+    Color color;
 
 public:
     Cell();

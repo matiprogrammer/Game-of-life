@@ -11,12 +11,15 @@ CONFIG += c++11
 SOURCES += \
     Board.cpp \
     Cell.cpp \
+    gui.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Board.h \
     Cell.h \
+    Color.h \
+    gui.h \
     mainwindow.h
 
 FORMS += \
@@ -26,3 +29,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    .gitignore

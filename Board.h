@@ -15,5 +15,6 @@ public:
     int getWidth();
     void drawBoard();
     int getAliveNeighbours(int height, int width);
+    Cell getCell(int height, int width);
 };
 #endif
