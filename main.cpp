@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "Board.h"
-#include "Cell.h"
+#include "SimpleCell.h"
 #include <QApplication>
 #include <QGridLayout>
 #include <QPushButton>
@@ -10,38 +10,25 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsGridLayout>
+#include "gui.h"
+#include <QObject>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    Board board(3,3);
-       board.drawBoard();
-//       QVBoxLayout *layout=new QVBoxLayout();
+    Board* board=new Board(50,50);
+    BoardController* controller=new BoardController(board);
+    Gui* gui=new Gui(controller,20,20);
 
-//       QTableWidget* qTableWidget=new QTableWidget(50,50);
-//        QTableWidgetItem* item=new QTableWidgetItem("heheh");
+    QGraphicsView *view=new QGraphicsView(gui->getScene());
+    QPushButton* button=new QPushButton("button");
+    gui->getScene()->addWidget(button);
 
-//        qTableWidget->setItem(0,0,item);
-//        layout->addWidget(qTableWidget);
-//        w.centralWidget()->setLayout(layout);
+    QObject::connect(button,&QPushButton::clicked,gui,&Gui::buttonClick);
+    QVBoxLayout *layout =new QVBoxLayout();
 
-
-        QGraphicsScene scene(0,0,900,600);
-        QBrush brush(Qt::blue);
-        QPen *pen=new QPen(Qt::black);
-        for(int i=0;i<900;i+=12)
-        {
-            for(int j=0;j<600;j+=12)
-            {
-                scene.addRect(i,j,10,10,*pen,brush);
-            }
-        }
-
-        QGraphicsView *view=new QGraphicsView(&scene);
-           view->scale(3,3);
-        QVBoxLayout *layout =new QVBoxLayout();
-        layout->addWidget(view);
-        w.centralWidget()->setLayout(layout);
+    layout->addWidget(view);
+    w.centralWidget()->setLayout(layout);
 
     w.show();
 

@@ -10,16 +10,24 @@ CONFIG += c++11
 
 SOURCES += \
     Board.cpp \
-    Cell.cpp \
+    SimpleCell.cpp \
+    boardcontroller.cpp \
+    cell.cpp \
+    cellgraphics.cpp \
     gui.cpp \
+    iclicklistener.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Board.h \
-    Cell.h \
     Color.h \
+    SimpleCell.h \
+    boardcontroller.h \
+    cell.h \
+    cellgraphics.h \
     gui.h \
+    iclicklistener.h \
     mainwindow.h
 
 FORMS += \
