@@ -24,7 +24,7 @@ QRectF CellGraphics::boundingRect() const
 
 void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    switch(cell->getColor())
+    switch(cell->getState())
     {
     case black:
         painter->setBrush(Qt::black);

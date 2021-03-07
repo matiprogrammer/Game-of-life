@@ -14,10 +14,13 @@ SOURCES += \
     boardcontroller.cpp \
     cell.cpp \
     cellgraphics.cpp \
+    classicstrategy.cpp \
+    enviroment.cpp \
     gui.cpp \
     iclicklistener.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    strategy.cpp
 
 HEADERS += \
     Board.h \
@@ -26,9 +29,12 @@ HEADERS += \
     boardcontroller.h \
     cell.h \
     cellgraphics.h \
+    classicstrategy.h \
+    enviroment.h \
     gui.h \
     iclicklistener.h \
-    mainwindow.h
+    mainwindow.h \
+    strategy.h
 
 FORMS += \
     mainwindow.ui

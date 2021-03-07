@@ -2,19 +2,15 @@
 #include "SimpleCell.h"
 using namespace std;
 
-SimpleCell::SimpleCell(Color color)
+SimpleCell::SimpleCell(Color color, Strategy *strategy)
 {
     this->currentColor=color;
+    this->strategy=strategy;
 }
 
-void SimpleCell::setNextState(Color color)
+void SimpleCell::calculateNextState(vector<SimpleCell> neightbours)
 {
-    this->nextColor=color;
-}
-
-void SimpleCell::setState(Color color)
-{
-    this->currentColor=color;
+    this->nextColor=strategy->calculateNextState(neightbours,currentColor);
 }
 
 void SimpleCell::updateState()
@@ -32,9 +28,19 @@ bool SimpleCell::isWall()
     return false;
 }
 
-Color SimpleCell::getColor()
+Color SimpleCell::getState()
 {
     return this->currentColor;
+}
+
+void SimpleCell::changeStrategy(Strategy *strategy)
+{
+    this->strategy=strategy;
+}
+
+void SimpleCell::cellClick()
+{
+    this->currentColor=this->strategy->onCellClick(this->currentColor);
 }
 
 

@@ -3,6 +3,7 @@
 
 #include "Board.h"
 #include "iclicklistener.h"
+#include <thread>
 class BoardController : public IClickListener
 {
 private:
@@ -13,6 +14,7 @@ public:
     int getBoardWidth();
     SimpleCell *getCell(int x, int y);
     void computeNextGeneration();
+    void startGame();
 
     // IClickListener interface
 public:

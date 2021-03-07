@@ -1,7 +1,7 @@
 #include "Board.h"
+#include "classicstrategy.h"
 #include <iostream>
 #include <QDebug>
-#include <list>
 #include <Color.h>
 using namespace std;
 
@@ -16,7 +16,7 @@ Board::Board(int height, int width)
         vector<vector<SimpleCell>>::iterator iter1 = --(board.end());
         for (int j = 0; j < width; j++)
         {
-            (*iter1).push_back(SimpleCell(white));
+            (*iter1).push_back(SimpleCell(white,new ClassicStrategy()));
         }
         iter1++;
     }
@@ -73,7 +73,7 @@ vector<SimpleCell> Board::getAliveNeighbours(int height, int width)
             if (i == 1 && j == 1)
             {
             }
-            else if(current.getColor()==black)
+            else if(current.getState()==black)
             {
                 neightbours.push_back(current);
             }

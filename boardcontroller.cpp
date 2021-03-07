@@ -1,6 +1,7 @@
 #include "boardcontroller.h"
 
 #include <QDebug>
+#include <thread>
 
 BoardController::BoardController(Board* board)
 {
@@ -28,19 +29,9 @@ void BoardController::computeNextGeneration()
     {
         for(int i=0;i<board->getWidth();i++)
         {
-
-            int neightbours= board->getAliveNeighbours(j,i).size();
-
+            vector<SimpleCell> neightbours= board->getAliveNeighbours(j,i);
             SimpleCell *cell= board->getCell(j,i);
-            if((cell->getColor()==white && neightbours==3)||(cell->getColor()==black &&(neightbours==2 || neightbours==3)))
-            {
-                cell->setNextState(black);
-            }
-            else
-            {
-                cell->setNextState(white);
-            }
-            //cell=NULL;
+            cell->calculateNextState(neightbours);
         }
     }
     for(int j=0;j<board->getHeight();j++)
@@ -53,9 +44,13 @@ void BoardController::computeNextGeneration()
     }
 }
 
+void BoardController::startGame()
+{
+
+}
+
 void BoardController::onClick(SimpleCell *cell)
 {
-    cell->setState(black);
-    QDebug _qDebug= qDebug();
-    _qDebug<<"klik";
+    cell->cellClick();
+
 }

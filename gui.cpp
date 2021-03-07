@@ -21,7 +21,7 @@ void Gui::initBoard()
         for(int j=0;j<this->height*cellHeight+(separatorTick*height);j+=cellHeight+separatorTick)
         {
             SimpleCell* cell=controller->getCell(j/(cellHeight+separatorTick),i/(cellWidth+separatorTick));
-            this->scene->addItem(new CellGraphics(QRect(i,j,20,20),cell,controller));
+            this->scene->addItem(new CellGraphics(QRect(i,j,cellWidth,cellHeight),cell,controller));
         }
     }
 }
@@ -33,7 +33,7 @@ QGraphicsScene* Gui::getScene()
 
 void Gui::buttonClick()
 {
-   controller->computeNextGeneration();
-   scene->update();
+        controller->computeNextGeneration();
+        scene->update();
 }
 
