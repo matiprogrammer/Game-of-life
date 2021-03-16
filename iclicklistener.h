@@ -8,7 +8,7 @@
 class IClickListener
 {
 public:
-    virtual void onClick(SimpleCell *cell)=0;
+    virtual void onCellClick(Cell *cell)=0;
 };
 
 #endif // ICLICKLISTENER_H

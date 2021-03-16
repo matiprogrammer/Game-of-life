@@ -10,8 +10,8 @@ public:
 
     // Strategy interface
 public:
-    virtual Color calculateNextState(vector<SimpleCell> neightbours, Color currentState) override;
-    virtual Color onCellClick(Color currentState) override;
+    virtual Color calculateNextState(vector<Cell*> neightbours, Color currentState) override;
+    virtual Color changeStateOnClick(Color currentState) override;
 };
 
 #endif // CLASSICSTRATEGY_H

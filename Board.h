@@ -1,13 +1,14 @@
 #ifndef BOARD_H
 #define BOARD_H
-#include <SimpleCell.h>
+#include <cell.h>
 #include <vector>
+#include <stdlib.h>
 
 using namespace std;
 class Board
 {
 private:
-    vector<vector<SimpleCell>> board;
+    vector<vector<Cell*>> board;
     int height, width;
     int cellHeight, cellWidth;
 public:
@@ -15,7 +16,10 @@ public:
     int getHeight();
     int getWidth();
     void drawBoard();
-    vector<SimpleCell> getAliveNeighbours(int height, int width);
-    SimpleCell* getCell(int y, int x);
+    vector<Cell*> getAliveNeighbours(int height, int width);
+    Cell* getCell(int y, int x);
+    vector<vector<Cell*>>::iterator getHeightIterator();
+    vector<Cell*>::iterator getWidthIterator();
+    vector<vector<Cell*>> getBoard();
 };
 #endif

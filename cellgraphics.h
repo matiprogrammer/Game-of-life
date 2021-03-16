@@ -1,7 +1,7 @@
 #ifndef CELLGRAPHICS_H
 #define CELLGRAPHICS_H
 #include <QRect>
-#include <SimpleCell.h>
+#include <cell.h>
 #include <QGraphicsItem>
 #include <iclicklistener.h>
 
@@ -10,19 +10,23 @@
 class CellGraphics:public QGraphicsItem
 {
 private:
-    QRect rect;
-    SimpleCell *cell;
+    QRectF rect;
+    Cell *cell;
     IClickListener* clickListener;
 public:
-    CellGraphics(int xPos, int yPos, int height, int width, SimpleCell* cell);
-    CellGraphics(QRect rect, SimpleCell* cell, IClickListener* clickListener);
+    CellGraphics(int xPos, int yPos, int height, int width, Cell* cell);
+    CellGraphics(QRect rect, Cell* cell, IClickListener* clickListener);
     // QGraphicsItem interface
 public:
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    // QGraphicsItem interface
 protected:
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    virtual void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    virtual void hoverMoveEvent(QGraphicsSceneHoverEvent *event) override;
+    virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
 #endif // CELLGRAPHICS_H

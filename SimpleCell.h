@@ -1,29 +1,23 @@
 #ifndef SIMPLECELL_H
 #define SIMPLECELL_H
+#include <cell.h>
 #include "Color.h"
 #include "strategy.h"
 
-#include <cell.h>
+
 #include <QGraphicsItem>
 
-class Strategy;
 
 using namespace std;
-class SimpleCell
+class SimpleCell :public Cell
 {
-private:
-    bool isAlive;
-    Color currentColor, nextColor;
-    Strategy* strategy;
 
 public:
+    ~SimpleCell();
     SimpleCell(Color color, Strategy* strategy);
-    void calculateNextState(vector<SimpleCell> neightbours);
-    void updateState();
-    bool isPoisoned();
-    bool isWall();
-    Color getState();
-    void changeStrategy(Strategy *strategy);
-    void cellClick();
+    virtual void calculateNextState(vector<Cell*> neightbours);
+    virtual bool isPoisoned();
+    virtual bool isWall();
+    virtual void changeStateOnClick();
 };
 #endif

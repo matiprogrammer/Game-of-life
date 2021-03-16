@@ -15,6 +15,7 @@ SOURCES += \
     cell.cpp \
     cellgraphics.cpp \
     classicstrategy.cpp \
+    colorstrategy.cpp \
     enviroment.cpp \
     gui.cpp \
     iclicklistener.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     cell.h \
     cellgraphics.h \
     classicstrategy.h \
+    colorstrategy.h \
     enviroment.h \
     gui.h \
     iclicklistener.h \

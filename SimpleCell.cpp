@@ -2,20 +2,18 @@
 #include "SimpleCell.h"
 using namespace std;
 
-SimpleCell::SimpleCell(Color color, Strategy *strategy)
+SimpleCell::~SimpleCell()
 {
-    this->currentColor=color;
-    this->strategy=strategy;
+
 }
 
-void SimpleCell::calculateNextState(vector<SimpleCell> neightbours)
+SimpleCell::SimpleCell(Color color, Strategy *strategy):Cell(color,strategy)
 {
-    this->nextColor=strategy->calculateNextState(neightbours,currentColor);
 }
 
-void SimpleCell::updateState()
+void SimpleCell::calculateNextState(vector<Cell*> neightbours)
 {
-    this->currentColor=this->nextColor;
+    this->nextColor=strategy->calculateNextState(neightbours,this->currentColor);
 }
 
 bool SimpleCell::isPoisoned()
@@ -28,19 +26,9 @@ bool SimpleCell::isWall()
     return false;
 }
 
-Color SimpleCell::getState()
+void SimpleCell::changeStateOnClick()
 {
-    return this->currentColor;
-}
-
-void SimpleCell::changeStrategy(Strategy *strategy)
-{
-    this->strategy=strategy;
-}
-
-void SimpleCell::cellClick()
-{
-    this->currentColor=this->strategy->onCellClick(this->currentColor);
+    this->currentColor=this->strategy->changeStateOnClick(this->currentColor);
 }
 
 

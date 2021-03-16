@@ -2,7 +2,11 @@
 #define COLOR_H
 enum Color{
     black,
-    white
+    white,
+    yellow,
+    green,
+    blue,
+    red,
 };
 
 #endif // COLOR_H

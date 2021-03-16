@@ -5,12 +5,12 @@ ClassicStrategy::ClassicStrategy()
 
 }
 
-Color ClassicStrategy::calculateNextState(vector<SimpleCell> neightbours, Color currentState)
+Color ClassicStrategy::calculateNextState(vector<Cell*> neightbours, Color currentState)
 {
     int neightboursAlive=0;
     for(unsigned long long i=0;i<neightbours.size();i++)
     {
-        if(neightbours.at(i).getState()!=white)
+        if(neightbours.at(i)->getState()!=white)
         {
             neightboursAlive++;
         }
@@ -25,7 +25,7 @@ Color ClassicStrategy::calculateNextState(vector<SimpleCell> neightbours, Color 
     }
 }
 
-Color ClassicStrategy::onCellClick(Color currentState)
+Color ClassicStrategy::changeStateOnClick(Color currentState)
 {
     if(currentState==white)
         return black;

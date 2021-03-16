@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "classicstrategy.h"
+#include "colorstrategy.h"
 #include <iostream>
 #include <QDebug>
 #include <Color.h>
@@ -7,16 +8,39 @@ using namespace std;
 
 Board::Board(int height, int width)
 {
+    srand (time(NULL));
+    Color color;
     this->height = height;
     this->width = width;
     for (int i = 0; i < height; i++)
     {
 
-        board.push_back(vector<SimpleCell>());
-        vector<vector<SimpleCell>>::iterator iter1 = --(board.end());
+        board.push_back(vector<Cell*>());
+        vector<vector<Cell*>>::iterator iter1 = --(board.end());
         for (int j = 0; j < width; j++)
         {
-            (*iter1).push_back(SimpleCell(white,new ClassicStrategy()));
+            int random=rand()%2;
+            switch (random) {
+            case 0:
+                color=white;
+                break;
+            case 1:
+                color=black;
+                break;
+            case 2:
+                color=yellow;
+                break;
+            case 3:
+                color=green;
+                break;
+            case 4:
+                color=blue;
+                break;
+            case 5:
+                color=red;
+                break;
+            }
+            (*iter1).push_back(new SimpleCell(color,new ClassicStrategy()));
         }
         iter1++;
     }
@@ -24,10 +48,10 @@ Board::Board(int height, int width)
 
 void Board::drawBoard()
 {
-    for (vector<vector<SimpleCell>>::iterator iter1 = board.begin(); iter1 != board.end(); iter1++)
+    for (vector<vector<Cell*>>::iterator iter1 = board.begin(); iter1 != board.end(); iter1++)
     {
         QDebug _qDebug=qDebug();
-        for (vector<SimpleCell>::iterator iter2 = (*iter1).begin(); iter2 != (*iter1).end(); iter2++)
+        for (vector<Cell*>::iterator iter2 = (*iter1).begin(); iter2 != (*iter1).end(); iter2++)
         {
             _qDebug<< "_";
 
@@ -45,9 +69,9 @@ int Board::getWidth()
     return this->width;
 }
 
-vector<SimpleCell> Board::getAliveNeighbours(int height, int width)
+vector<Cell*> Board::getAliveNeighbours(int height, int width)
 {
-    vector<SimpleCell> neightbours;
+    vector<Cell*> neightbours;
     int heightOffset = 1, widthOffset = 1;
 
     if (height <= 0)
@@ -61,20 +85,18 @@ vector<SimpleCell> Board::getAliveNeighbours(int height, int width)
         width = 0;
     }
 
-    int aliveNeightbours = 0;
-    vector<vector<SimpleCell>>::iterator rowIterator = board.begin() + height - heightOffset;
+    vector<vector<Cell*>>::iterator rowIterator = board.begin() + height - heightOffset;
     for (int i = (height == 0 ? 1 : 0); i < (height >= this->height - 1 ? 2 : 3); i++, rowIterator++)
     {
-        vector<SimpleCell>::iterator columnIterator = (*rowIterator).begin() + width - widthOffset;
+        vector<Cell*>::iterator columnIterator = (*rowIterator).begin() + width - widthOffset;
         for (int j = (width == 0 ? 1 : 0); j < (width >= this->width - 1 ? 2 : 3); j++, columnIterator++)
         {
-            SimpleCell current = (*columnIterator);
+            Cell* current = (*columnIterator);
 
             if (i == 1 && j == 1)
             {
             }
-            else if(current.getState()==black)
-            {
+            else{
                 neightbours.push_back(current);
             }
 
@@ -83,8 +105,25 @@ vector<SimpleCell> Board::getAliveNeighbours(int height, int width)
     return neightbours;
 }
 
-SimpleCell* Board::getCell(int y, int x)
+
+Cell* Board::getCell(int y, int x)
 {
-    SimpleCell* cell=&this->board.at(y).at(x);
+    Cell* cell=this->board.at(y).at(x);
     return cell;
+}
+
+vector<vector<Cell*>>::iterator Board::getHeightIterator()
+{
+    return board.begin();
+}
+
+
+vector<Cell*>::iterator Board::getWidthIterator()
+{
+    return board.begin()->begin();
+}
+
+vector<vector<Cell*> > Board::getBoard()
+{
+    return this->board;
 }

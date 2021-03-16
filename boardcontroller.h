@@ -12,13 +12,13 @@ public:
     BoardController(Board* board);
     int getBoardHeight();
     int getBoardWidth();
-    SimpleCell *getCell(int x, int y);
+    Cell *getCell(int x, int y);
     void computeNextGeneration();
     void startGame();
 
     // IClickListener interface
 public:
-    virtual void onClick(SimpleCell *cell) override;
+    virtual void onCellClick(Cell *cell) override;
 };
 
 #endif // BOARDCONTROLLER_H

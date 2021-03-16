@@ -3,23 +3,24 @@
 #include <QDebug>
 #include <QPainter>
 
-CellGraphics::CellGraphics(int xPos, int yPos,int height, int width,  SimpleCell* cell)
+CellGraphics::CellGraphics(int xPos, int yPos,int height, int width,  Cell* cell)
 {
     this->rect=QRect(xPos,yPos,width,height);
     this->cell=cell;
 
 }
 
-CellGraphics::CellGraphics(QRect rect, SimpleCell *cell,IClickListener* clickListener)
+CellGraphics::CellGraphics(QRect rect, Cell *cell,IClickListener* clickListener)
 {
     this->rect=rect;
     this->cell=cell;
     this->clickListener=clickListener;
+   // setCacheMode(CacheMode::ItemCoordinateCache);
 }
 
 QRectF CellGraphics::boundingRect() const
 {
-    return QRectF(this->rect);
+    return this->rect;
 }
 
 void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -32,6 +33,18 @@ void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     case white:
         painter->setBrush(Qt::white);
         break;
+    case yellow:
+        painter->setBrush(Qt::yellow);
+        break;
+    case  green:
+         painter->setBrush(Qt::green);
+        break;
+    case  blue:
+         painter->setBrush(Qt::blue);
+        break;
+    case  red:
+         painter->setBrush(Qt::red);
+        break;
     }
 
 
@@ -39,9 +52,23 @@ void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->drawRect(this->boundingRect());
 }
 
+void CellGraphics::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+
+}
+
+void CellGraphics::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+
+}
+
+void CellGraphics::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+
+}
+
 void CellGraphics:: mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    this->clickListener->onClick(this->cell);
-
+    this->clickListener->onCellClick(this->cell);
     update();
 }

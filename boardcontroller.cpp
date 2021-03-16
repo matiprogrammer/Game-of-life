@@ -18,19 +18,22 @@ int BoardController::getBoardWidth()
     return board->getWidth();
 }
 
-SimpleCell *BoardController::getCell(int x, int y)
+Cell *BoardController::getCell(int x, int y)
 {
     return board->getCell(y,x);
 }
 
 void BoardController::computeNextGeneration()
 {
+    vector<Cell*> neightbours;
+    Cell *cell;
     for(int j=0;j<board->getHeight();j++)
     {
         for(int i=0;i<board->getWidth();i++)
         {
-            vector<SimpleCell> neightbours= board->getAliveNeighbours(j,i);
-            SimpleCell *cell= board->getCell(j,i);
+
+            neightbours= board->getAliveNeighbours(j,i);
+            cell= board->getCell(j,i);
             cell->calculateNextState(neightbours);
         }
     }
@@ -49,8 +52,8 @@ void BoardController::startGame()
 
 }
 
-void BoardController::onClick(SimpleCell *cell)
+void BoardController::onCellClick(Cell *cell)
 {
-    cell->cellClick();
+    cell->changeStateOnClick();
 
 }
