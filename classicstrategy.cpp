@@ -33,3 +33,16 @@ Color ClassicStrategy::changeStateOnClick(Color currentState)
         return white;
 }
 
+Color ClassicStrategy::drawState()
+{
+    int random=rand()%2;
+    switch (random) {
+    case 0:
+        return white;
+    case 1:
+        return black;
+
+    }
+    return white;
+}
+

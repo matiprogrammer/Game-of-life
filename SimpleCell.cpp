@@ -31,6 +31,11 @@ void SimpleCell::changeStateOnClick()
     this->currentColor=this->strategy->changeStateOnClick(this->currentColor);
 }
 
+void SimpleCell::drawState()
+{
+    this->currentColor=this->strategy->drawState();
+}
+
 
 
 

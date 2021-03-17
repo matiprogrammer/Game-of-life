@@ -19,5 +19,6 @@ public:
     virtual bool isPoisoned();
     virtual bool isWall();
     virtual void changeStateOnClick();
+    virtual void drawState() override;
 };
 #endif

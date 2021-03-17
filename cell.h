@@ -1,10 +1,8 @@
 #ifndef CELL_H
 #define CELL_H
 #include <vector>
-
 #include <Color.h>
-
-
+#include "strategy.h"
 class Strategy;
 
 using namespace std;
@@ -23,6 +21,7 @@ public:
     virtual Color getState();
     virtual void changeStrategy(Strategy *strategy);
     virtual void changeStateOnClick()=0;
+    virtual void drawState();
 };
 
 #endif // CELL_H

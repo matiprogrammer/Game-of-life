@@ -31,7 +31,6 @@ void BoardController::computeNextGeneration()
     {
         for(int i=0;i<board->getWidth();i++)
         {
-
             neightbours= board->getAliveNeighbours(j,i);
             cell= board->getCell(j,i);
             cell->calculateNextState(neightbours);
@@ -52,8 +51,30 @@ void BoardController::startGame()
 
 }
 
+void BoardController::drawStates()
+{
+    for(int j=0;j<board->getHeight();j++)
+    {
+        for(int i=0;i<board->getWidth();i++)
+        {
+            board->getCell(j,i)->drawState();
+        }
+
+    }
+}
+
 void BoardController::onCellClick(Cell *cell)
 {
     cell->changeStateOnClick();
+}
 
+void BoardController::changeGlobalStrategy(Strategy *strategy)
+{
+    for(int j=0;j<board->getHeight();j++)
+    {
+        for(int i=0;i<board->getWidth();i++)
+        {
+            board->getCell(j,i)->changeStrategy(strategy);
+        }
+    }
 }

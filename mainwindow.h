@@ -23,7 +23,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-        QPushButton* startButton, *stopButton;
+        QPushButton* startButton, *stopButton, *colorStrategyButton, *classicStrategyButton, *drawStatesButton;
         QGraphicsView *view;
         QGraphicsScene *scene;
 
@@ -37,6 +37,9 @@ private:
 public slots:
        void onStartButtonClicked();
        void onStopButtonClicked();
-       void timeout();
+       void nextIteration();
+       void onColorStrategyClicked();
+       void onClassicStrategyClicked();
+       void onDrawStatesClicked();
 };
 #endif // MAINWINDOW_H

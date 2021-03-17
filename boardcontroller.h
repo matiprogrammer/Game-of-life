@@ -4,7 +4,8 @@
 #include "Board.h"
 #include "iclicklistener.h"
 #include <thread>
-class BoardController : public IClickListener
+#include <QObject>
+class BoardController : public IClickListener,public QObject
 {
 private:
     Board *board;
@@ -16,9 +17,13 @@ public:
     void computeNextGeneration();
     void startGame();
 
+    public slots:
+    void drawStates();
+
     // IClickListener interface
 public:
     virtual void onCellClick(Cell *cell) override;
+    virtual void changeGlobalStrategy(Strategy* strategy);
 };
 
 #endif // BOARDCONTROLLER_H

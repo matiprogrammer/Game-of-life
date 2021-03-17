@@ -8,39 +8,15 @@ using namespace std;
 
 Board::Board(int height, int width)
 {
-    srand (time(NULL));
-    Color color;
     this->height = height;
     this->width = width;
     for (int i = 0; i < height; i++)
     {
-
         board.push_back(vector<Cell*>());
         vector<vector<Cell*>>::iterator iter1 = --(board.end());
         for (int j = 0; j < width; j++)
         {
-            int random=rand()%2;
-            switch (random) {
-            case 0:
-                color=white;
-                break;
-            case 1:
-                color=black;
-                break;
-            case 2:
-                color=yellow;
-                break;
-            case 3:
-                color=green;
-                break;
-            case 4:
-                color=blue;
-                break;
-            case 5:
-                color=red;
-                break;
-            }
-            (*iter1).push_back(new SimpleCell(color,new ClassicStrategy()));
+            (*iter1).push_back(new SimpleCell(white,new ClassicStrategy()));
         }
         iter1++;
     }

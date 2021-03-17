@@ -47,3 +47,29 @@ Color ColorStrategy::calculateNextState(vector<Cell *> neightbours, Color curren
 Color ColorStrategy::changeStateOnClick(Color currentState){
     return getColorOneUnitLarger(currentState);
 }
+
+Color ColorStrategy::drawState()
+{
+    int random=rand()%6;
+    switch (random) {
+    case 0:
+        return white;
+        break;
+    case 1:
+        return black;
+        break;
+    case 2:
+        return yellow;
+        break;
+    case 3:
+        return green;
+        break;
+    case 4:
+        return blue;
+        break;
+    case 5:
+        return red;
+        break;
+    }
+    return white;
+}

@@ -1,5 +1,7 @@
 #include "cell.h"
 
+
+
 Cell::~Cell()
 {
 
@@ -13,6 +15,11 @@ Cell::Cell(Color color, Strategy* strategy)
 void Cell::changeStrategy(Strategy *strategy)
 {
     this->strategy=strategy;
+}
+
+void Cell::drawState()
+{
+    currentColor=this->strategy->drawState();
 }
 
 Color Cell::getState()

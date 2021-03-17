@@ -3,7 +3,7 @@
 #include <cell.h>
 #include <vector>
 #include <stdlib.h>
-
+#include "SimpleCell.h"
 using namespace std;
 class Board
 {

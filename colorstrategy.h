@@ -14,6 +14,7 @@ public:
 public:
     virtual Color calculateNextState(vector<Cell *> neightbours, Color currentState) override;
     virtual Color changeStateOnClick(Color currentState) override;
+    virtual Color drawState() override;
 };
 
 #endif // COLORSTRATEGY_H
