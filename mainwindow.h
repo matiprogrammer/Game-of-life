@@ -23,23 +23,25 @@ public:
 
 private:
     Ui::MainWindow *ui;
-        QPushButton* startButton, *stopButton, *colorStrategyButton, *classicStrategyButton, *drawStatesButton;
-        QGraphicsView *view;
-        QGraphicsScene *scene;
+    QPushButton* startButton, *stopButton, *colorStrategyButton, *classicStrategyButton, *drawStatesButton, *addWallButton;
+    QGraphicsView *view;
+    QGraphicsScene *scene;
 
-        QHBoxLayout *mainLayout, *boardLayout;
-        QVBoxLayout *leftBarLayout;
-        QSpacerItem * verticalSpacer;
-        BoardController * boardController;
+    QHBoxLayout *mainLayout, *boardLayout;
+    QVBoxLayout *leftBarLayout;
+    QSpacerItem * verticalSpacer;
+    BoardController * boardController;
 
-        QTimer *timer;
+    QTimer *timer;
 
 public slots:
-       void onStartButtonClicked();
-       void onStopButtonClicked();
-       void nextIteration();
-       void onColorStrategyClicked();
-       void onClassicStrategyClicked();
-       void onDrawStatesClicked();
+    void onStartButtonClicked();
+    void onStopButtonClicked();
+    void nextIteration();
+    void onColorStrategyClicked();
+    void onClassicStrategyClicked();
+    void onDrawStatesClicked();
+    void onAddWallClicked();
+
 };
 #endif // MAINWINDOW_H

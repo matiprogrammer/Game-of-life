@@ -1,4 +1,5 @@
 #include "boardcontroller.h"
+#include "cellgraphics.h"
 
 #include <QDebug>
 #include <thread>
@@ -63,11 +64,21 @@ void BoardController::drawStates()
     }
 }
 
-void BoardController::onCellClick(Cell *cell)
+void BoardController::onCellClick(CellGraphics *cellGraphics)
 {
-    cell->changeStateOnClick();
+    if(strategyForNextCells!=NULL)
+    {
+        cellGraphics->getCell()->changeStrategy(strategyForNextCells);
+    }
+    cellGraphics->getCell()->changeStateOnClick();
+    cellGraphics->update();
 }
 
+void BoardController::changeStrategForNextCells(Strategy* strategy)
+{
+    delete this->strategyForNextCells;
+    this->strategyForNextCells=strategy;
+}
 void BoardController::changeGlobalStrategy(Strategy *strategy)
 {
     for(int j=0;j<board->getHeight();j++)

@@ -14,6 +14,7 @@ Cell::Cell(Color color, Strategy* strategy)
 }
 void Cell::changeStrategy(Strategy *strategy)
 {
+    delete this->strategy;
     this->strategy=strategy;
 }
 

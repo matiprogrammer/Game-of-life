@@ -9,6 +9,7 @@ class BoardController : public IClickListener,public QObject
 {
 private:
     Board *board;
+    Strategy* strategyForNextCells;
 public:
     BoardController(Board* board);
     int getBoardHeight();
@@ -16,13 +17,13 @@ public:
     Cell *getCell(int x, int y);
     void computeNextGeneration();
     void startGame();
-
+    void changeStrategForNextCells(Strategy* strategy);
     public slots:
     void drawStates();
 
     // IClickListener interface
 public:
-    virtual void onCellClick(Cell *cell) override;
+    virtual void onCellClick(CellGraphics *cellGraphics) override;
     virtual void changeGlobalStrategy(Strategy* strategy);
 };
 

@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Board* board=new Board(100,200);
+    Board* board=new Board(100,100);
     BoardController* controller=new BoardController(board);
     MainWindow w(controller);
 

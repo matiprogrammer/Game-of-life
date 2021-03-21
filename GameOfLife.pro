@@ -15,13 +15,16 @@ SOURCES += \
     cell.cpp \
     cellgraphics.cpp \
     classicstrategy.cpp \
+    classicwithwallstrategy.cpp \
     colorstrategy.cpp \
     enviroment.cpp \
     gui.cpp \
     iclicklistener.cpp \
     main.cpp \
     mainwindow.cpp \
-    strategy.cpp
+    strategy.cpp \
+    wallcell.cpp \
+    wallstrategy.cpp
 
 HEADERS += \
     Board.h \
@@ -31,12 +34,15 @@ HEADERS += \
     cell.h \
     cellgraphics.h \
     classicstrategy.h \
+    classicwithwallstrategy.h \
     colorstrategy.h \
     enviroment.h \
     gui.h \
     iclicklistener.h \
     mainwindow.h \
-    strategy.h
+    strategy.h \
+    wallcell.h \
+    wallstrategy.h
 
 FORMS += \
     mainwindow.ui

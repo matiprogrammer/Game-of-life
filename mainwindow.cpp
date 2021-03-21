@@ -1,6 +1,7 @@
 #include "cellgraphics.h"
 #include "classicstrategy.h"
 #include "colorstrategy.h"
+#include "classicwithwallstrategy.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
@@ -24,7 +25,9 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     this->scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     this->view=new QGraphicsView(scene);
-
+    view->setOptimizationFlags(QGraphicsView::DontSavePainterState);
+    view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     this->boardLayout=new QHBoxLayout();
     boardLayout->addWidget(view);
     this->leftBarLayout=new QVBoxLayout();
@@ -35,6 +38,7 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     this->colorStrategyButton=new QPushButton("tryb kolorów");
     this->classicStrategyButton=new QPushButton("Tryb klasyczny");
     this->drawStatesButton=new QPushButton("Losuj stany");
+    this->addWallButton=new QPushButton("Dodaj sciane");
 
     this->leftBarLayout->addWidget(startButton);
     this->leftBarLayout->addWidget(stopButton);
@@ -57,7 +61,7 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     }
 
     this->timer = new QTimer(this);
-    this->timer->setInterval(10);
+    this->timer->setInterval(100);
 
     QObject::connect(startButton,SIGNAL(clicked()),timer,SLOT(start()));
     QObject::connect(stopButton,SIGNAL(clicked()),timer,SLOT(stop()));
@@ -65,6 +69,7 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     QObject::connect(drawStatesButton, &QPushButton::released,this,&MainWindow::onDrawStatesClicked);
     QObject::connect(colorStrategyButton, &QPushButton::released,this,&MainWindow::onColorStrategyClicked);
     QObject::connect(classicStrategyButton, &QPushButton::released,this,&MainWindow::onClassicStrategyClicked);
+    QObject::connect(addWallButton, &QPushButton::released,this,&MainWindow::onAddWallClicked);
 }
 
 MainWindow::~MainWindow()
@@ -74,12 +79,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::onStartButtonClicked()
 {
-     view->setInteractive(false);
+    view->setInteractive(false);
 }
 
 void MainWindow::onStopButtonClicked()
 {
- view->setInteractive(true);
+    view->setInteractive(true);
 }
 
 void MainWindow::nextIteration()
@@ -89,13 +94,14 @@ void MainWindow::nextIteration()
     this->boardController->computeNextGeneration();
     qDebug()<<"obliczanie komórek"<<timer.elapsed();
     timer.restart();
-   this->scene->update();
+    this->scene->update();
     qDebug()<<"aktualizacja widoku"<<timer.elapsed();
 }
 
 void MainWindow::onColorStrategyClicked()
 {
     this->boardController->changeGlobalStrategy(new ColorStrategy());
+
 }
 
 void MainWindow::onClassicStrategyClicked()
@@ -108,5 +114,12 @@ void MainWindow::onDrawStatesClicked()
     this->boardController->drawStates();
     this->scene->update();
 }
+
+void MainWindow::onAddWallClicked()
+{
+    this->boardController->changeStrategForNextCells(new ClassicWithWallStrategy());
+}
+
+
 
 

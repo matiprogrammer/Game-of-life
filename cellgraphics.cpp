@@ -1,8 +1,9 @@
 #include "cellgraphics.h"
 
 #include <QDebug>
+#include <QGraphicsSceneHoverEvent>
 #include <QPainter>
-
+#include <QGraphicsScene>
 CellGraphics::CellGraphics(int xPos, int yPos,int height, int width,  Cell* cell)
 {
     this->rect=QRect(xPos,yPos,width,height);
@@ -15,7 +16,10 @@ CellGraphics::CellGraphics(QRect rect, Cell *cell,IClickListener* clickListener)
     this->rect=rect;
     this->cell=cell;
     this->clickListener=clickListener;
-   // setCacheMode(CacheMode::ItemCoordinateCache);
+    this->setAcceptHoverEvents(true);
+    this->setAcceptDrops(true);
+
+    // setCacheMode(CacheMode::ItemCoordinateCache);
 }
 
 QRectF CellGraphics::boundingRect() const
@@ -37,13 +41,17 @@ void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         painter->setBrush(Qt::yellow);
         break;
     case  green:
-         painter->setBrush(Qt::green);
+        painter->setBrush(Qt::green);
         break;
     case  blue:
-         painter->setBrush(Qt::blue);
+        painter->setBrush(Qt::blue);
         break;
     case  red:
-         painter->setBrush(Qt::red);
+        painter->setBrush(Qt::red);
+        break;
+    case wall:
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(rect);
         break;
     }
 
@@ -52,8 +60,21 @@ void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->drawRect(this->boundingRect());
 }
 
+Cell *CellGraphics::getCell()
+{
+    return this->cell;
+}
+
+void CellGraphics::setCell(Cell* cell)
+{
+    this->cell=cell;
+}
+
+
+
 void CellGraphics::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
+
 
 }
 
@@ -69,6 +90,16 @@ void CellGraphics::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 
 void CellGraphics:: mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    this->clickListener->onCellClick(this->cell);
+    this->clickListener->onCellClick(this);
     update();
+}
+
+void CellGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+
+}
+
+void CellGraphics::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+
 }

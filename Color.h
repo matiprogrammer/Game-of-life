@@ -7,6 +7,7 @@ enum Color{
     green,
     blue,
     red,
+    wall,
 };
 
 #endif // COLOR_H

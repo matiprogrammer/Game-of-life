@@ -10,6 +10,7 @@ using namespace std;
 class Strategy
 {
 public:
+    virtual ~Strategy();
     Strategy();
     virtual Color calculateNextState(vector<Cell*> neightbours, Color currentState)=0;
     virtual Color changeStateOnClick(Color currentState)=0;
