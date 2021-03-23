@@ -72,6 +72,7 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     this->customStrategyWidget=new QWidget();
     this->customStrategyWidget->setLayout(customStrategyLayout);
     this->customStrategyButton=new QPushButton("Zmień zasady");
+    this->customStrategyLayout->addWidget(customStrategyButton);
     // this->customStrategyWidget->setVisible(false);
 
 
@@ -82,7 +83,6 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     this->leftBarLayout->addWidget(resetButton);
     this->leftBarLayout->addWidget(strategyComboBox);
     this->leftBarLayout->addWidget(customStrategyWidget);
-    this->leftBarLayout->addWidget(customStrategyButton);
 
     leftBarLayout->setAlignment(Qt::AlignTop);
 
@@ -110,7 +110,7 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     QObject::connect(timer, &QTimer::timeout,this,&MainWindow::nextIteration);
     QObject::connect(drawStatesButton, &QPushButton::released,this,&MainWindow::onDrawStatesClicked);
     QObject::connect(resetButton, &QPushButton::released,this,&MainWindow::onResetButtonClicked);
-
+    QObject::connect(customStrategyButton, &QPushButton::released,this,&MainWindow::onCustomStrategyChanged);
     QObject::connect(strategyComboBox,&QComboBox::currentTextChanged,this, &MainWindow::changeStrategyClicked);
 }
 
@@ -152,10 +152,6 @@ void MainWindow::onDrawStatesClicked()
     this->scene->update();
 }
 
-void MainWindow::onAddWallClicked()
-{
-
-}
 
 void MainWindow::radioButtonSelected(bool selected)
 {
@@ -184,6 +180,15 @@ void MainWindow::radioButtonSelected(bool selected)
 void MainWindow::onResetButtonClicked()
 {
     boardController->resetBoard();
+}
+
+void MainWindow::onCustomStrategyChanged()
+{
+    int dead= numberOfCellsStillDeadComboBox->currentText().toInt();
+    int live=numberOfCellsStillLiveComboBox->currentText().toInt();
+    int die=numberOfCellsThenDieComboBox->currentText().toInt();
+    int born=numberOfCellsThenBornComboBox->currentText().toInt();
+    boardController->changeCustomStrategy(live,dead,born,die);
 }
 
 void MainWindow::update()

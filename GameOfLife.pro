@@ -17,8 +17,8 @@ SOURCES += \
     classicstrategy.cpp \
     classicwithwallstrategy.cpp \
     colorstrategy.cpp \
+    customstrategy.cpp \
     enviroment.cpp \
-    gui.cpp \
     iclicklistener.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -38,8 +38,8 @@ HEADERS += \
     classicstrategy.h \
     classicwithwallstrategy.h \
     colorstrategy.h \
+    customstrategy.h \
     enviroment.h \
-    gui.h \
     iclicklistener.h \
     mainwindow.h \
     poisonedcell.h \

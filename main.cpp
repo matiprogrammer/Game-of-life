@@ -12,7 +12,6 @@
 #include <QGraphicsGridLayout>
 #include <QTimer>
 #include "classicstrategy.h"
-#include "gui.h"
 #include <QObject>
 int main(int argc, char *argv[])
 {

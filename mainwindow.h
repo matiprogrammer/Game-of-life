@@ -48,9 +48,9 @@ public slots:
     void nextIteration();
     void changeStrategyClicked(const QString &text);
     void onDrawStatesClicked();
-    void onAddWallClicked();
     void radioButtonSelected(bool selected);
     void onResetButtonClicked();
+    void onCustomStrategyChanged();
 
 
     // View interface

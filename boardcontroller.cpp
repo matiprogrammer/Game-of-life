@@ -3,6 +3,7 @@
 #include "classicstrategy.h"
 #include "classicwithwallstrategy.h"
 #include "colorstrategy.h"
+#include "customstrategy.h"
 
 #include <QDebug>
 #include <thread>
@@ -27,7 +28,7 @@ int BoardController::getBoardWidth()
 void BoardController::setView(View *view)
 {
     this->view=view;
-     view->setPossibleCellTypes( globalStrategy->getPossibleCellTypes());
+    view->setPossibleCellTypes( globalStrategy->getPossibleCellTypes());
 }
 
 Cell *BoardController::getCell(int x, int y)
@@ -75,7 +76,7 @@ void BoardController::startGame()
 
 void BoardController::resetBoard()
 {
-this->board->reset();
+    this->board->reset();
     view->update();
 }
 
@@ -112,7 +113,7 @@ void BoardController::onCellClick(CellGraphics* cellGraphics)
 
 void BoardController::changeGlobalStrategy(const QString &textStrategy)
 {
-    //delete this->globalStrategy;
+    delete this->globalStrategy;
     if(textStrategy=="Kolorowa")
     {
         this->globalStrategy=new ColorStrategy();
@@ -128,6 +129,14 @@ void BoardController::changeGlobalStrategy(const QString &textStrategy)
     this->nextCellType="brak";
     view->setPossibleCellTypes( globalStrategy->getPossibleCellTypes());
     board->reset();
+    view->update();
+}
+void BoardController::changeCustomStrategy(int numberOfCellsWhenStillLive, int numberOfCellsWhenStillDead, int numberOfCellsThenBorn, int numberOfCellsThenDie )
+{
+    delete this->globalStrategy;
+    this->globalStrategy=new CustomStrategy(numberOfCellsWhenStillLive,numberOfCellsWhenStillDead,numberOfCellsThenBorn,numberOfCellsThenDie);
+    this->nextCellType="brak";
+    view->setPossibleCellTypes( globalStrategy->getPossibleCellTypes());
     view->update();
 }
 

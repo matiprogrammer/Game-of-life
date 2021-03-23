@@ -26,6 +26,8 @@ public:
     void resetBoard();
     public slots:
     void drawStates();
+    void changeCustomStrategy(int numberOfCellsWhenStillLive, int numberOfCellsWhenStillDead, int numberOfCellsThenBorn, int numberOfCellsThenDie );
+
 
 
     // IClickListener interface
