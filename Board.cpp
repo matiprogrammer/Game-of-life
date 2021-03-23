@@ -4,30 +4,33 @@
 #include <iostream>
 #include <QDebug>
 #include <Color.h>
-using namespace std;
+
 
 Board::Board(int height, int width)
 {
     this->height = height;
     this->width = width;
+    init();
+}
+void Board::init()
+{
     for (int i = 0; i < height; i++)
     {
-        board.push_back(vector<Cell*>());
-        vector<vector<Cell*>>::iterator iter1 = --(board.end());
+        board.emplace_back(vector<std::shared_ptr<Cell>>());
+        vector<vector<std::shared_ptr<Cell>>>::iterator iter1 = --(board.end());
         for (int j = 0; j < width; j++)
         {
-            (*iter1).push_back(new SimpleCell(white,new ClassicStrategy()));
+            (*iter1).emplace_back(new SimpleCell(white));
         }
         iter1++;
     }
 }
-
 void Board::drawBoard()
 {
-    for (vector<vector<Cell*>>::iterator iter1 = board.begin(); iter1 != board.end(); iter1++)
+    for (vector<vector<std::shared_ptr<Cell>>>::iterator iter1 = board.begin(); iter1 != board.end(); iter1++)
     {
         QDebug _qDebug=qDebug();
-        for (vector<Cell*>::iterator iter2 = (*iter1).begin(); iter2 != (*iter1).end(); iter2++)
+        for (vector<std::shared_ptr<Cell>>::iterator iter2 = (*iter1).begin(); iter2 != (*iter1).end(); iter2++)
         {
             _qDebug<< "_";
 
@@ -61,13 +64,13 @@ vector<Cell*> Board::getAliveNeighbours(int height, int width)
         width = 0;
     }
 
-    vector<vector<Cell*>>::iterator rowIterator = board.begin() + height - heightOffset;
+    vector<vector<std::shared_ptr<Cell>>>::iterator rowIterator = board.begin() + height - heightOffset;
     for (int i = (height == 0 ? 1 : 0); i < (height >= this->height - 1 ? 2 : 3); i++, rowIterator++)
     {
-        vector<Cell*>::iterator columnIterator = (*rowIterator).begin() + width - widthOffset;
+        vector<std::shared_ptr<Cell>>::iterator columnIterator = (*rowIterator).begin() + width - widthOffset;
         for (int j = (width == 0 ? 1 : 0); j < (width >= this->width - 1 ? 2 : 3); j++, columnIterator++)
         {
-            Cell* current = (*columnIterator);
+            Cell* current = (*columnIterator).get();
 
             if (i == 1 && j == 1)
             {
@@ -84,22 +87,22 @@ vector<Cell*> Board::getAliveNeighbours(int height, int width)
 
 Cell* Board::getCell(int y, int x)
 {
-    Cell* cell=this->board.at(y).at(x);
+    Cell* cell=this->board.at(y).at(x).get();
     return cell;
 }
 
-vector<vector<Cell*>>::iterator Board::getHeightIterator()
+void Board::setCell(int y, int x, Cell *cell)
 {
-    return board.begin();
+    board.at(y).at(x).reset(cell);
 }
 
-
-vector<Cell*>::iterator Board::getWidthIterator()
+void Board::reset()
 {
-    return board.begin()->begin();
+    board.clear();
+    init();
 }
 
-vector<vector<Cell*> > Board::getBoard()
+vector<vector<std::shared_ptr<Cell>> > Board::getBoard()
 {
     return this->board;
 }

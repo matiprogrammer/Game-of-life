@@ -14,11 +14,10 @@ class SimpleCell :public Cell
 
 public:
     ~SimpleCell();
-    SimpleCell(Color color, Strategy* strategy);
-    virtual void calculateNextState(vector<Cell*> neightbours);
+    SimpleCell();
+    SimpleCell(Color color);
     virtual bool isPoisoned();
     virtual bool isWall();
-    virtual void changeStateOnClick();
-    virtual void drawState() override;
+
 };
 #endif

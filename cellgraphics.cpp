@@ -4,22 +4,27 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include <QGraphicsScene>
-CellGraphics::CellGraphics(int xPos, int yPos,int height, int width,  Cell* cell)
-{
-    this->rect=QRect(xPos,yPos,width,height);
-    this->cell=cell;
 
-}
-
-CellGraphics::CellGraphics(QRect rect, Cell *cell,IClickListener* clickListener)
+CellGraphics::CellGraphics(QRect rect,int xPos, int yPos,ICellInfo* cellInfo)
 {
     this->rect=rect;
-    this->cell=cell;
-    this->clickListener=clickListener;
+    this->xPos=xPos;
+    this->yPos=yPos;
+    this->cellInfo=cellInfo;
     this->setAcceptHoverEvents(true);
     this->setAcceptDrops(true);
 
     // setCacheMode(CacheMode::ItemCoordinateCache);
+}
+
+int CellGraphics::getYPos()
+{
+    return this->yPos;
+}
+
+int CellGraphics::getXPos()
+{
+    return this->xPos;
 }
 
 QRectF CellGraphics::boundingRect() const
@@ -29,7 +34,7 @@ QRectF CellGraphics::boundingRect() const
 
 void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    switch(cell->getState())
+    switch(cellInfo->getColor(this->xPos,this->yPos))
     {
     case black:
         painter->setBrush(Qt::black);
@@ -50,8 +55,11 @@ void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         painter->setBrush(Qt::red);
         break;
     case wall:
-        painter->setBrush(Qt::black);
+        painter->setBrush(Qt::darkGray);
         painter->drawEllipse(rect);
+        break;
+    case  poisoned:
+        painter->setBrush(Qt::darkGreen);
         break;
     }
 
@@ -59,17 +67,6 @@ void CellGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->setPen(Qt::black);
     painter->drawRect(this->boundingRect());
 }
-
-Cell *CellGraphics::getCell()
-{
-    return this->cell;
-}
-
-void CellGraphics::setCell(Cell* cell)
-{
-    this->cell=cell;
-}
-
 
 
 void CellGraphics::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
@@ -90,7 +87,7 @@ void CellGraphics::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 
 void CellGraphics:: mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    this->clickListener->onCellClick(this);
+    this->cellInfo->onCellClick(this);
     update();
 }
 

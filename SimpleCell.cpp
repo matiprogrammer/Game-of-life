@@ -7,13 +7,13 @@ SimpleCell::~SimpleCell()
 
 }
 
-SimpleCell::SimpleCell(Color color, Strategy *strategy):Cell(color,strategy)
+SimpleCell::SimpleCell():Cell(white)
 {
 }
 
-void SimpleCell::calculateNextState(vector<Cell*> neightbours)
+SimpleCell::SimpleCell(Color color):Cell(color)
 {
-    this->nextColor=strategy->calculateNextState(neightbours,this->currentColor);
+
 }
 
 bool SimpleCell::isPoisoned()
@@ -24,16 +24,6 @@ bool SimpleCell::isPoisoned()
 bool SimpleCell::isWall()
 {
     return false;
-}
-
-void SimpleCell::changeStateOnClick()
-{
-    this->currentColor=this->strategy->changeStateOnClick(this->currentColor);
-}
-
-void SimpleCell::drawState()
-{
-    this->currentColor=this->strategy->drawState();
 }
 
 

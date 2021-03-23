@@ -1,11 +1,11 @@
+#include "SimpleCell.h"
 #include "classicstrategy.h"
 
 ClassicStrategy::ClassicStrategy()
 {
-
 }
 
-Color ClassicStrategy::calculateNextState(vector<Cell*> neightbours, Color currentState)
+Color ClassicStrategy::calculateNextState(vector<Cell*> neightbours, Cell* cell)
 {
     int neightboursAlive=0;
     for(unsigned long long i=0;i<neightbours.size();i++)
@@ -15,7 +15,7 @@ Color ClassicStrategy::calculateNextState(vector<Cell*> neightbours, Color curre
             neightboursAlive++;
         }
     }
-    if((currentState==white && neightboursAlive==3)||(currentState!=white && (neightboursAlive==2|| neightboursAlive==3)))
+    if((cell->getState()==white && neightboursAlive==3)||(cell->getState()!=white && (neightboursAlive==2|| neightboursAlive==3)))
     {
         return black;
     }
@@ -25,15 +25,15 @@ Color ClassicStrategy::calculateNextState(vector<Cell*> neightbours, Color curre
     }
 }
 
-Color ClassicStrategy::changeStateOnClick(Color currentState)
+Color ClassicStrategy::changeStateOnClick(Cell* cell)
 {
-    if(currentState==white)
+    if(cell->getState()==white)
         return black;
     else
         return white;
 }
 
-Color ClassicStrategy::drawState()
+Color ClassicStrategy::drawState(Cell* cell)
 {
     int random=rand()%2;
     switch (random) {
@@ -45,4 +45,18 @@ Color ClassicStrategy::drawState()
     }
     return white;
 }
+
+list<QString> ClassicStrategy::getPossibleCellTypes()
+{
+    list<QString> possibleCellTypes;
+    possibleCellTypes.push_back("zwykła");
+    return possibleCellTypes;
+}
+
+Cell *ClassicStrategy::getCell(QString &cellType)
+{
+        return new SimpleCell();
+}
+
+
 

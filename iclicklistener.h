@@ -5,10 +5,11 @@
 #include "cellgraphics.h"
 
 class CellGraphics;
-class IClickListener
+class ICellInfo
 {
 public:
-    virtual void onCellClick(CellGraphics *cellGraphics)=0;
+    virtual void onCellClick(CellGraphics* cellGraphics)=0;
+    virtual Color getColor(int xPos, int yPos)=0;
 };
 
 #endif // ICLICKLISTENER_H

@@ -1,3 +1,4 @@
+#include "SimpleCell.h"
 #include "colorstrategy.h"
 
 Color ColorStrategy::getColorOneUnitLarger(Color color)
@@ -23,10 +24,10 @@ ColorStrategy::ColorStrategy()
 
 }
 
-Color ColorStrategy::calculateNextState(vector<Cell *> neightbours, Color currentState)
+Color ColorStrategy::calculateNextState(vector<Cell *> neightbours, Cell* cell)
 {
     int neightboursCauseChange=0;
-    Color colorWhichCasueChange=getColorOneUnitLarger(currentState);
+    Color colorWhichCasueChange=getColorOneUnitLarger(cell->getState());
     for(unsigned long long i=0;i<neightbours.size();i++)
     {
         if(neightbours.at(i)->getState()==colorWhichCasueChange)
@@ -40,23 +41,23 @@ Color ColorStrategy::calculateNextState(vector<Cell *> neightbours, Color curren
     }
     else
     {
-        return currentState;
+        return cell->getState();
     }
 }
 
-Color ColorStrategy::changeStateOnClick(Color currentState){
-    return getColorOneUnitLarger(currentState);
+Color ColorStrategy::changeStateOnClick(Cell* cell){
+    return getColorOneUnitLarger(cell->getState());
 }
 
-Color ColorStrategy::drawState()
+Color ColorStrategy::drawState(Cell* cell)
 {
-    int random=rand()%6;
+    int random=rand()%5;
     switch (random) {
     case 0:
         return white;
         break;
     case 1:
-        return black;
+        return red;
         break;
     case 2:
         return yellow;
@@ -67,9 +68,19 @@ Color ColorStrategy::drawState()
     case 4:
         return blue;
         break;
-    case 5:
-        return red;
-        break;
+
     }
     return white;
+}
+
+list<QString> ColorStrategy::getPossibleCellTypes()
+{
+    list<QString> possibleCellTypes;
+    possibleCellTypes.push_back("kolorowa");
+    return possibleCellTypes;
+}
+
+Cell *ColorStrategy::getCell(QString &cellType)
+{
+    return new SimpleCell(yellow);
 }

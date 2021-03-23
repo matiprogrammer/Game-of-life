@@ -11,10 +11,9 @@ public:
 
     // Cell interface
 public:
-    virtual void calculateNextState(vector<Cell *> neightbours) override;
     virtual bool isPoisoned() override;
     virtual bool isWall() override;
-    virtual void changeStateOnClick() override;
+
 };
 
 #endif // WALLCELL_H

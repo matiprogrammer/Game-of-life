@@ -8,20 +8,18 @@ class Strategy;
 using namespace std;
 class Cell
 {
-    protected:
+private:
+    int width, height;
+protected:
     Color currentColor, nextColor;
-    Strategy* strategy;
 public:
     virtual ~Cell();
-    Cell(Color color, Strategy* strategy);
-    virtual void calculateNextState(vector<Cell*> neightbours)=0;
-    virtual void updateState();
+    Cell(Color color);
+    void updateState();
     virtual bool isPoisoned()=0;
     virtual bool isWall()=0;
-    virtual Color getState();
-    virtual void changeStrategy(Strategy *strategy);
-    virtual void changeStateOnClick()=0;
-    virtual void drawState();
+    Color getState();
+    void setNextState(Color color);
 };
 
 #endif // CELL_H

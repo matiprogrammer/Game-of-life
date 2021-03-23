@@ -8,5 +8,8 @@ Strategy::~Strategy()
 
 Strategy::Strategy()
 {
-     srand(time(NULL));
+    srand(time(NULL));
+
 }
+
+

@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Color.h"
+#include <list>
 #include "cell.h"
+#include <QString>
+
 class Cell;
 using namespace std;
 class Strategy
@@ -12,9 +15,11 @@ class Strategy
 public:
     virtual ~Strategy();
     Strategy();
-    virtual Color calculateNextState(vector<Cell*> neightbours, Color currentState)=0;
-    virtual Color changeStateOnClick(Color currentState)=0;
-    virtual Color drawState()=0;
+    virtual Color calculateNextState(vector<Cell*> neightbours, Cell* cell)=0;
+    virtual Color changeStateOnClick(Cell* cell)=0;
+    virtual Color drawState(Cell *cell)=0;
+    virtual list<QString> getPossibleCellTypes()=0;
+    virtual Cell* getCell(QString &cellType)=0;
 };
 
 #endif // STRATEGY_H

@@ -22,7 +22,9 @@ SOURCES += \
     iclicklistener.cpp \
     main.cpp \
     mainwindow.cpp \
+    poisonedcell.cpp \
     strategy.cpp \
+    view.cpp \
     wallcell.cpp \
     wallstrategy.cpp
 
@@ -40,7 +42,9 @@ HEADERS += \
     gui.h \
     iclicklistener.h \
     mainwindow.h \
+    poisonedcell.h \
     strategy.h \
+    view.h \
     wallcell.h \
     wallstrategy.h
 

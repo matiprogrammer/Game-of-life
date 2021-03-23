@@ -7,22 +7,23 @@
 
 
 
-class IClickListener;
+class ICellInfo;
 class CellGraphics:public QGraphicsItem
 {
 private:
     QRectF rect;
-    Cell *cell;
-    IClickListener* clickListener;
+    int xPos, yPos;
+    ICellInfo* cellInfo;
 public:
-    CellGraphics(int xPos, int yPos, int height, int width, Cell* cell);
-    CellGraphics(QRect rect, Cell* cell, IClickListener* clickListener);
+
+    CellGraphics(QRect rect, int xPos, int yPos, ICellInfo* cellInfo);
+    int getYPos();
+    int getXPos();
     // QGraphicsItem interface
 public:
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    Cell *getCell();
-    void setCell(Cell *cell);
+
     // QGraphicsItem interface
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;

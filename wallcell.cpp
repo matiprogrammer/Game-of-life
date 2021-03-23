@@ -1,13 +1,8 @@
 #include "wallcell.h"
 
-WallCell::WallCell():Cell(wall, new ClassicStrategy())
+WallCell::WallCell():Cell(wall)
 {
     nextColor=wall;
-}
-
-void WallCell::calculateNextState(vector<Cell *> neightbours)
-{
-
 }
 
 bool WallCell::isPoisoned()
@@ -20,7 +15,3 @@ bool WallCell::isWall()
     return true;
 }
 
-void WallCell::changeStateOnClick()
-{
-
-}

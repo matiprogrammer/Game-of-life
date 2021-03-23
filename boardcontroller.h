@@ -3,28 +3,39 @@
 
 #include "Board.h"
 #include "iclicklistener.h"
+#include "view.h"
 #include <thread>
 #include <QObject>
-class BoardController : public IClickListener,public QObject
+class BoardController : public ICellInfo,public QObject
 {
 private:
     Board *board;
-    Strategy* strategyForNextCells;
+    Strategy* globalStrategy;
+    QString nextCellType;
+    View* view;
 public:
-    BoardController(Board* board);
+    BoardController(Board* board, Strategy* strategy);
     int getBoardHeight();
     int getBoardWidth();
+    void setView(View* view);
     Cell *getCell(int x, int y);
     void computeNextGeneration();
+    void setNextCellType(const QString &cellType);
+    QString getNextCellType();
     void startGame();
-    void changeStrategForNextCells(Strategy* strategy);
+    void resetBoard();
     public slots:
     void drawStates();
 
+
     // IClickListener interface
 public:
-    virtual void onCellClick(CellGraphics *cellGraphics) override;
-    virtual void changeGlobalStrategy(Strategy* strategy);
+    virtual void onCellClick(CellGraphics* cellGraphics) override;
+    virtual void changeGlobalStrategy(const QString &textStrategy);
+
+    // ICellInfo interface
+public:
+    virtual Color getColor(int xPos, int yPos) override;
 };
 
 #endif // BOARDCONTROLLER_H

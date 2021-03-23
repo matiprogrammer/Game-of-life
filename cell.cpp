@@ -7,25 +7,22 @@ Cell::~Cell()
 
 }
 
-Cell::Cell(Color color, Strategy* strategy)
+Cell::Cell(Color color)
 {
     this->currentColor=color;
-    this->strategy=strategy;
-}
-void Cell::changeStrategy(Strategy *strategy)
-{
-    delete this->strategy;
-    this->strategy=strategy;
+    this->width=width;
+    this->height=height;
 }
 
-void Cell::drawState()
-{
-    currentColor=this->strategy->drawState();
-}
 
 Color Cell::getState()
 {
     return this->currentColor;
+}
+
+void Cell::setNextState(Color color)
+{
+    this->nextColor=color;
 }
 
 void Cell::updateState()

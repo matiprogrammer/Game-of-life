@@ -1,12 +1,17 @@
 #include "boardcontroller.h"
 #include "cellgraphics.h"
+#include "classicstrategy.h"
+#include "classicwithwallstrategy.h"
+#include "colorstrategy.h"
 
 #include <QDebug>
 #include <thread>
 
-BoardController::BoardController(Board* board)
+BoardController::BoardController(Board* board, Strategy* strategy)
 {
     this->board=board;
+    this->globalStrategy=strategy;
+    this->nextCellType="brak";
 }
 
 int BoardController::getBoardHeight()
@@ -17,6 +22,12 @@ int BoardController::getBoardHeight()
 int BoardController::getBoardWidth()
 {
     return board->getWidth();
+}
+
+void BoardController::setView(View *view)
+{
+    this->view=view;
+     view->setPossibleCellTypes( globalStrategy->getPossibleCellTypes());
 }
 
 Cell *BoardController::getCell(int x, int y)
@@ -34,7 +45,7 @@ void BoardController::computeNextGeneration()
         {
             neightbours= board->getAliveNeighbours(j,i);
             cell= board->getCell(j,i);
-            cell->calculateNextState(neightbours);
+            cell->setNextState(globalStrategy->calculateNextState(neightbours,cell));
         }
     }
     for(int j=0;j<board->getHeight();j++)
@@ -47,10 +58,27 @@ void BoardController::computeNextGeneration()
     }
 }
 
+void BoardController::setNextCellType(const QString &cellType)
+{
+    this->nextCellType=cellType;
+}
+
+QString BoardController::getNextCellType()
+{
+    return this->nextCellType;
+}
+
 void BoardController::startGame()
 {
 
 }
+
+void BoardController::resetBoard()
+{
+this->board->reset();
+    view->update();
+}
+
 
 void BoardController::drawStates()
 {
@@ -58,34 +86,52 @@ void BoardController::drawStates()
     {
         for(int i=0;i<board->getWidth();i++)
         {
-            board->getCell(j,i)->drawState();
+            Cell* cell=board->getCell(j,i);
+            cell->setNextState( this->globalStrategy->drawState(cell));
+            cell->updateState();
         }
 
     }
 }
 
-void BoardController::onCellClick(CellGraphics *cellGraphics)
+
+void BoardController::onCellClick(CellGraphics* cellGraphics)
 {
-    if(strategyForNextCells!=NULL)
+    if(nextCellType!="brak")
     {
-        cellGraphics->getCell()->changeStrategy(strategyForNextCells);
+        Cell* cell=globalStrategy->getCell(nextCellType);
+        board->setCell(cellGraphics->getYPos(),cellGraphics->getXPos(),cell);
     }
-    cellGraphics->getCell()->changeStateOnClick();
+    else{
+        Cell* cell= board->getCell(cellGraphics->getYPos(),cellGraphics->getXPos());
+        cell->setNextState(globalStrategy->changeStateOnClick(cell));
+        cell->updateState();
+    }
     cellGraphics->update();
 }
 
-void BoardController::changeStrategForNextCells(Strategy* strategy)
+void BoardController::changeGlobalStrategy(const QString &textStrategy)
 {
-    delete this->strategyForNextCells;
-    this->strategyForNextCells=strategy;
-}
-void BoardController::changeGlobalStrategy(Strategy *strategy)
-{
-    for(int j=0;j<board->getHeight();j++)
+    //delete this->globalStrategy;
+    if(textStrategy=="Kolorowa")
     {
-        for(int i=0;i<board->getWidth();i++)
-        {
-            board->getCell(j,i)->changeStrategy(strategy);
-        }
+        this->globalStrategy=new ColorStrategy();
     }
+    else if(textStrategy=="Klasyczna")
+    {
+        this->globalStrategy=new ClassicStrategy();
+    }
+    else if(textStrategy=="Zatrute ściany")
+    {
+        this->globalStrategy=new ClassicWithWallStrategy();
+    }
+    this->nextCellType="brak";
+    view->setPossibleCellTypes( globalStrategy->getPossibleCellTypes());
+    board->reset();
+    view->update();
+}
+
+Color BoardController::getColor(int xPos, int yPos)
+{
+    return board->getCell(yPos,xPos)->getState();
 }

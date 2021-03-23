@@ -8,9 +8,10 @@ using namespace std;
 class Board
 {
 private:
-    vector<vector<Cell*>> board;
+    vector<vector<std::shared_ptr<Cell>>> board;
     int height, width;
     int cellHeight, cellWidth;
+    void init();
 public:
     Board(int height, int width);
     int getHeight();
@@ -18,8 +19,8 @@ public:
     void drawBoard();
     vector<Cell*> getAliveNeighbours(int height, int width);
     Cell* getCell(int y, int x);
-    vector<vector<Cell*>>::iterator getHeightIterator();
-    vector<Cell*>::iterator getWidthIterator();
-    vector<vector<Cell*>> getBoard();
+    void setCell(int y,int x, Cell* cell);
+    void reset();
+    vector<vector<std::shared_ptr<Cell>>> getBoard();
 };
 #endif

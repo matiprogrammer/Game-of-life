@@ -20,8 +20,10 @@ void Gui::initBoard()
     {
         for(int j=0;j<this->height*cellHeight+(separatorTick*height);j+=cellHeight+separatorTick)
         {
-            Cell* cell=controller->getCell(j/(cellHeight+separatorTick),i/(cellWidth+separatorTick));
-            this->scene->addItem(new CellGraphics(QRect(i,j,cellWidth,cellHeight),cell,controller));
+            int yPos=j/(cellHeight+separatorTick);
+            int xPos=i/(cellWidth+separatorTick);
+            Cell* cell=controller->getCell(yPos,xPos);
+           // this->scene->addItem(new CellGraphics(QRect(i,j,cellWidth,cellHeight),controller));
         }
     }
 }
