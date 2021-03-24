@@ -22,6 +22,7 @@ SOURCES += \
     iclicklistener.cpp \
     main.cpp \
     mainwindow.cpp \
+    pattern.cpp \
     poisonedcell.cpp \
     strategy.cpp \
     view.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     enviroment.h \
     iclicklistener.h \
     mainwindow.h \
+    pattern.h \
     poisonedcell.h \
     strategy.h \
     view.h \

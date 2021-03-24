@@ -31,8 +31,8 @@ private:
     QGraphicsView *view;
     QGraphicsScene *scene;
 
-    QHBoxLayout *mainLayout, *boardLayout;
-    QVBoxLayout *leftBarLayout;
+    QHBoxLayout *mainLayout, *boardLayout, *patternsLayout;
+    QVBoxLayout *leftBarLayout, *boardAndPatternsLayout;
     QGridLayout *customStrategyLayout;
     QWidget *customStrategyWidget;
     QSpacerItem * verticalSpacer;

@@ -4,6 +4,7 @@
 #include "classicwithwallstrategy.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "pattern.h"
 #include <QButtonGroup>
 #include <QDebug>
 #include <QElapsedTimer>
@@ -34,7 +35,13 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
     this->boardLayout=new QHBoxLayout();
     boardLayout->addWidget(view);
     this->leftBarLayout=new QVBoxLayout();
+    this->boardAndPatternsLayout=new QVBoxLayout();
+    this->patternsLayout=new QHBoxLayout();
+    //QGraphicsScene * patternScene=new QGraphicsScene(0,0,100,100);
+    //QGraphicsView* patternsView=new QGraphicsView(patternScene);
+    //patternsLayout->addWidget(patternsView);
 
+    //patternScene->addItem(new Pattern(QRect(0,0,98,98)));
     //buttons
     this->startButton=new QPushButton("Start");
     this->stopButton=new QPushButton("Stop");
@@ -86,9 +93,11 @@ MainWindow::MainWindow(BoardController* boardController,QWidget *parent)
 
     leftBarLayout->setAlignment(Qt::AlignTop);
 
+    this->boardAndPatternsLayout->addLayout(boardLayout);
+    this->boardAndPatternsLayout->addLayout(patternsLayout);
     this->mainLayout=new QHBoxLayout();
     this->mainLayout->addLayout(leftBarLayout);
-    this->mainLayout->addLayout(boardLayout);
+    this->mainLayout->addLayout(boardAndPatternsLayout);
 
     this->centralWidget()->setLayout(mainLayout);
 
